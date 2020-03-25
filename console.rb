@@ -17,6 +17,7 @@ Property.delete_all()
 property1.address = "7 Glasgow Road"
 property1.value = 225_000
 property1.save()
+my_found_property = Property.find_by_address('122 Waterloo Road')
 
 binding.pry
 nil
