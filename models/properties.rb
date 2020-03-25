@@ -80,4 +80,32 @@ class Property
     db.close()
   end
 
+  def Property.delete_all()
+    db = PG.connect({ dbname: 'properties', host: 'localhost'})
+    sql = "DELETE FROM properties"
+    values = [@id]
+    db.prepare("delete_all", sql)
+    db.exec_prepared("delete_all")
+    db.close()
+  end
+
+  def Property.find(id) # read
+    db = PG.connect({ dbname: 'properties', host: 'localhost'})
+    sql = "SELECT * FROM properties WHERE id = $1"
+    values = [id]
+    db.prepare("find", sql)]
+    results_array = db.exec_prepared("find", values)
+    db.close()
+    # return nil if results_array.first() == nil
+    property_hash = results_array[0]
+    found_property = Property.new(property_hash)
+    return found_property
+  end
+
+  def Property.find_by_address(address)
+    db = PG.connect({ dbname: 'properties', host: 'localhost'})
+    sql = "SELECT * FROM properties WHERE id = $1"
+    values = [address]
+  end
+
 end

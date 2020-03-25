@@ -13,10 +13,10 @@ property2 = Property.new({'address' => '56 Bath Street',
                           'year_built' => 2001
                          })
 
+Property.delete_all()
 property1.address = "7 Glasgow Road"
 property1.value = 225_000
 property1.save()
-property1.delete()
 
 binding.pry
 nil
