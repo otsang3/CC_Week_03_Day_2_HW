@@ -96,7 +96,7 @@ class Property
     db.prepare("find", sql)]
     results_array = db.exec_prepared("find", values)
     db.close()
-    # return nil if results_array.first() == nil
+    return nil if results_array.first() == nil
     property_hash = results_array[0]
     found_property = Property.new(property_hash)
     return found_property
@@ -104,8 +104,14 @@ class Property
 
   def Property.find_by_address(address)
     db = PG.connect({ dbname: 'properties', host: 'localhost'})
-    sql = "SELECT * FROM properties WHERE id = $1"
+    sql = "SELECT * FROM properties WHERE address = $1"
     values = [address]
+    db.prepare("find_by_address")
+    results_array = db.exec_prepared("find_by_address", values)
+    return nil if results_array.first() == nil
+    property_hash = results_array[0]
+    found_property = Property.new(property_hash)
+    return found_property
   end
 
 end
